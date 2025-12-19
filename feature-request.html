@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Request - Smart Meal Planner</title>
+    
+    <!-- STYLES: All styling for the feature request page -->
+    <style>
+        /* CSS VARIABLES: Define color scheme for consistent theming (matches main app) */
+        :root { --primary: #2ecc71; --dark: #2c3e50; --accent: #3498db; --locked: #f39c12; }
+        
+        /* BODY STYLES: Base layout and typography */
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; padding: 20px; color: var(--dark); line-height: 1.6; }
+        
+        /* CONTAINER: Main wrapper for content, centered with max-width */
+        .container { max-width: 800px; margin: auto; }
+        
+        /* NAVIGATION BAR: Top navigation menu */
+        nav { background: var(--dark); padding: 15px 25px; border-radius: 8px; margin-bottom: 30px; display: flex; gap: 20px; align-items: center; }
+        nav a { color: white; text-decoration: none; padding: 8px 16px; border-radius: 4px; transition: background 0.2s; }
+        nav a:hover { background: rgba(255,255,255,0.1); }
+        nav a.active { background: var(--primary); }
+        nav a.feature-request { background: var(--accent); margin-left: auto; }
+        nav a.feature-request:hover { background: #2980b9; }
+        
+        /* HEADER: Contains page title and description */
+        header { margin-bottom: 30px; text-align: center; }
+        header h1 { margin: 0 0 10px 0; color: var(--dark); }
+        header p { color: #7f8c8d; font-size: 1.1rem; margin: 0; }
+        
+        /* FORM CONTAINER: Wrapper for the feature request form */
+        .form-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        
+        /* FORM GROUPS: Individual form field containers */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: var(--dark); }
+        .form-group input, .form-group textarea, .form-group select { 
+            width: 100%; 
+            padding: 12px; 
+            border: 2px solid #e0e0e0; 
+            border-radius: 6px; 
+            font-size: 1rem; 
+            font-family: 'Segoe UI', sans-serif;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .form-group textarea { resize: vertical; min-height: 150px; }
+        .form-group small { display: block; margin-top: 5px; color: #7f8c8d; font-size: 0.9rem; }
+        
+        /* SUBMIT BUTTON: Form submission button */
+        .submit-btn { 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            padding: 14px 30px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 1.1rem;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .submit-btn:hover { background: #27ae60; }
+        
+        /* SUCCESS MESSAGE: Displayed after successful submission */
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #c3e6cb;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .success-message.show { display: block; }
+        
+        /* INFO BOX: Helpful information box */
+        .info-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            margin-bottom: 25px;
+        }
+        .info-box p { margin: 0; color: #1565c0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- NAVIGATION: Links to other pages -->
+        <nav>
+            <a href="index.html">Meal Planner</a>
+            <a href="database.html">Meal Database</a>
+            <a href="feature-request.html" class="feature-request active">💡 Feature Request</a>
+        </nav>
+        
+        <!-- HEADER SECTION: Page title and description -->
+        <header>
+            <h1>💡 Feature Request</h1>
+            <p>Have an idea to make the Smart Meal Planner even better? We'd love to hear it!</p>
+        </header>
+        
+        <!-- SUCCESS MESSAGE: Shown after form submission -->
+        <div class="success-message" id="successMessage">
+            <h2>✅ Thank you for your suggestion!</h2>
+            <p>Your feature request has been submitted successfully. We appreciate your feedback!</p>
+        </div>
+        
+        <!-- INFO BOX: Instructions for users -->
+        <div class="info-box">
+            <p><strong>💭 What makes a great feature request?</strong> Be specific about the problem you're trying to solve and how the feature would help you. The more detail, the better!</p>
+        </div>
+        
+        <!-- FEATURE REQUEST FORM -->
+        <div class="form-container">
+            <form id="featureRequestForm">
+                <!-- NAME FIELD -->
+                <div class="form-group">
+                    <label for="name">Your Name (Optional)</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name">
+                </div>
+                
+                <!-- EMAIL FIELD -->
+                <div class="form-group">
+                    <label for="email">Your Email (Optional)</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com">
+                    <small>We'll only use this to follow up on your suggestion if needed.</small>
+                </div>
+                
+                <!-- FEATURE TYPE -->
+                <div class="form-group">
+                    <label for="featureType">Request Type</label>
+                    <select id="featureType" name="featureType" required>
+                        <option value="">Select a type...</option>
+                        <option value="new-feature">New Feature</option>
+                        <option value="improvement">Improvement to Existing Feature</option>
+                        <option value="bug-report">Bug Report</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <!-- FEATURE TITLE -->
+                <div class="form-group">
+                    <label for="title">Feature Title *</label>
+                    <input type="text" id="title" name="title" placeholder="Brief summary of your idea" required>
+                </div>
+                
+                <!-- DETAILED DESCRIPTION -->
+                <div class="form-group">
+                    <label for="description">Detailed Description *</label>
+                    <textarea id="description" name="description" placeholder="Describe your idea in detail. What problem does it solve? How would it work?" required></textarea>
+                    <small>Be as detailed as possible - this helps us understand and implement your idea!</small>
+                </div>
+                
+                <!-- SUBMIT BUTTON -->
+                <button type="submit" class="submit-btn">Submit Feature Request</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- JAVASCRIPT: Form handling and submission -->
+    <script>
+        // FORM SUBMISSION HANDLER
+        document.getElementById('featureRequestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value || 'Anonymous',
+                email: document.getElementById('email').value || 'Not provided',
+                featureType: document.getElementById('featureType').value,
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                timestamp: new Date().toLocaleString()
+            };
+            
+            // Send to Formspree (you'll need to set this up)
+            // For now, we'll use a simple mailto link approach
+            const subject = `Feature Request: ${formData.title}`;
+            const body = `
+Feature Type: ${formData.featureType}
+Submitted by: ${formData.name}
+Email: ${formData.email}
+Date: ${formData.timestamp}
+
+DESCRIPTION:
+${formData.description}
+            `.trim();
+            
+            // Create mailto link (temporary solution)
+            const mailtoLink = `mailto:powerponypatrol@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // For a better solution, integrate with a form service like Formspree, Google Forms, or Netlify Forms
+            // Example with Formspree (uncomment and add your endpoint):
+            /*
+            fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                showSuccessMessage();
+            })
+            .catch(error => {
+                alert('There was an error submitting your request. Please try again.');
+            });
+            */
+            
+            // For now, show success message and open mailto
+            showSuccessMessage();
+            window.location.href = mailtoLink;
+        });
+        
+        // SHOW SUCCESS MESSAGE
+        function showSuccessMessage() {
+            document.getElementById('successMessage').classList.add('show');
+            document.getElementById('featureRequestForm').reset();
+            
+            // Scroll to top to see success message
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').classList.remove('show');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
