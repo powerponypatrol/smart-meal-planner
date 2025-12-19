@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10-Day Meal Planner</title>
+    
+    <!-- STYLES: All styling for the meal planner application -->
+    <style>
+        /* CSS VARIABLES: Define color scheme for consistent theming */
+        :root { --primary: #2ecc71; --dark: #2c3e50; --accent: #3498db; --locked: #f39c12; }
+        
+        /* BODY STYLES: Base layout and typography */
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; padding: 20px; color: var(--dark); line-height: 1.4; }
+        
+        /* CONTAINER: Main wrapper for content, centered with max-width */
+        .container { max-width: 1200px; margin: auto; }
+        
+        /* NAVIGATION BAR: Top navigation menu */
+        nav { background: var(--dark); padding: 15px 25px; border-radius: 8px; margin-bottom: 30px; display: flex; gap: 20px; align-items: center; }
+        nav a { color: white; text-decoration: none; padding: 8px 16px; border-radius: 4px; transition: background 0.2s; }
+        nav a:hover { background: rgba(255,255,255,0.1); }
+        nav a.active { background: var(--primary); }
+        
+        /* HEADER: Contains title and main generation button */
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        
+        /* GRID LAYOUT: Responsive grid for 10-day meal cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+        
+        /* DAY CARD: Individual card for each day's meals */
+        .day-card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 6px solid var(--primary); }
+        
+        /* DAY CARD HEADER: Displays the day of week and date (e.g., "Thursday Dec 18") */
+        .day-card h3 { margin: 0 0 15px 0; color: var(--dark); font-size: 1rem; border-bottom: 1px solid #eee; padding-bottom: 5px; height: 2.5em; display: flex; align-items: center; }
+        
+        /* MEAL SLOT: Container for each meal (Breakfast, Lunch, or Dinner) */
+        .meal-slot { margin-bottom: 12px; position: relative; }
+        
+        /* LABEL ROW: Contains meal type label and lock button */
+        .label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        
+        /* MEAL LABEL: Displays meal type (BREAKFAST, LUNCH, DINNER) */
+        .meal-slot label { color: #7f8c8d; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; }
+        
+        /* LOCK BUTTON: Toggles lock state to prevent meal from changing during regeneration */
+        /* Default state: unlocked (gray) */
+        .lock-btn { 
+            background: none; border: 1px solid #ddd; color: #ccc; cursor: pointer; 
+            padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; transition: 0.2s;
+        }
+        /* Active state: locked (orange) */
+        .lock-btn.active { background: var(--locked); color: white; border-color: var(--locked); }
+        
+        /* MEAL SELECT DROPDOWN: Allows manual selection of meals from database */
+        /* Shows alphabetically sorted meals filtered by type (Breakfast/Lunch/Dinner) */
+        .meal-select { 
+            width: 100%; padding: 8px; border: 1px solid #d1d8e0; border-radius: 6px; 
+            font-size: 0.9rem; box-sizing: border-box; background-color: #fff;
+        }
+        /* Locked state: disabled and styled with orange border */
+        .meal-select.is-locked { border-color: var(--locked); background-color: #fffcf5; }
+
+        /* MAIN GENERATION BUTTON: Triggers regeneration of all unlocked meals */
+        button.main-gen { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem; }
+    </style>
+</head>
+<body>
+
+<!-- MAIN CONTAINER: Wrapper for entire application -->
+<div class="container">
+    
+    <!-- NAVIGATION: Links to switch between pages -->
+    <nav>
+        <a href="index.html" class="active">Meal Planner</a>
+        <a href="database.html">Meal Database</a>
+    </nav>
+    
+    <!-- HEADER SECTION: App title and generation button -->
+    <header>
+        <h1>Smart Meal Planner</h1>
+        <!-- Regenerates all unlocked meals while preserving locked selections -->
+        <button class="main-gen" onclick="generatePlan()">Generate Unlocked Meals</button>
+    </header>
+
+    <!-- PLAN DISPLAY: Grid container populated with 10 day cards by JavaScript -->
+    <div id="plan-display" class="grid"></div>
+
+</div>
+
+<!-- SHARED MEAL DATABASE: Default meal data used by both pages -->
+<script src="mealData.js"></script>
+
+<!-- MAIN JAVASCRIPT: Core application logic -->
+<script src="app.js"></script>
+</body>
+</html>
