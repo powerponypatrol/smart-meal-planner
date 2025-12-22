@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feature Request - Smart Meal Planner</title>
     
+    <!-- AUTHENTICATION: Load auth module first to protect page -->
+    <script src="auth.js"></script>
+    
     <!-- STYLES: All styling for the feature request page -->
     <style>
         /* CSS VARIABLES: Define color scheme for consistent theming (matches main app) */
@@ -23,6 +26,12 @@
         nav a.active { background: var(--primary); }
         nav a.feature-request { background: var(--accent); margin-left: auto; }
         nav a.feature-request:hover { background: #2980b9; }
+        
+        /* USER INFO AND LOGOUT */
+        .user-info { color: white; margin-left: auto; display: flex; gap: 15px; align-items: center; }
+        .user-info span { opacity: 0.8; font-size: 0.9rem; }
+        .logout-btn { background: #e74c3c; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; transition: background 0.2s; font-weight: bold; }
+        .logout-btn:hover { background: #c0392b; }
         
         /* HEADER: Contains page title and description */
         header { margin-bottom: 30px; text-align: center; }
@@ -98,7 +107,17 @@
             <a href="index.html">Meal Planner</a>
             <a href="database.html">Meal Database</a>
             <a href="feature-request.html" class="feature-request active">💡 Feature Request</a>
+            <div class="user-info">
+                <span id="currentUser"></span>
+                <button class="logout-btn" onclick="Auth.logout()">Logout</button>
+            </div>
         </nav>
+        
+        <script>
+            // Display current user
+            const user = Auth.getCurrentUser();
+            document.getElementById('currentUser').textContent = user.isGuest ? '👤 Guest' : `👤 ${user.username}`;
+        </script>
         
         <!-- HEADER SECTION: Page title and description -->
         <header>
